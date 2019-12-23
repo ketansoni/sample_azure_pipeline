@@ -8,14 +8,15 @@ pool:
 steps:
 
 - bash: |
+   pip install --upgrade pip
    pip install pytest
-   
+
 - task: UsePythonVersion@0
   displayName: Use Python $(pythonVersion)
   inputs:
     versionSpec: $(pythonVersion)
 
 # Run tests
-- bash: pytest
+- bash: python3 -m pytest sample.py
   displayName: Run tests
   workingDirectory: $(testsDirectory)
