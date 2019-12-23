@@ -1,0 +1,18 @@
+variables:
+  pythonVersion: 3.7
+  testsDirectory: test/
+
+pool:
+  vmImage: ubuntu-16.04
+
+steps:
+
+- task: UsePythonVersion@0
+  displayName: Use Python $(pythonVersion)
+  inputs:
+    versionSpec: $(pythonVersion)
+
+# Run tests
+- bash: pytest
+  displayName: Run tests
+  workingDirectory: $(testsDirectory)
