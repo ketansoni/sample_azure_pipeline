@@ -7,6 +7,9 @@ pool:
 
 steps:
 
+- bash: |
+   pip install pytest
+   
 - task: UsePythonVersion@0
   displayName: Use Python $(pythonVersion)
   inputs:
