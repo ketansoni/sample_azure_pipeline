@@ -1,4 +1,2 @@
 pytest==5.3.2
-azure-devops==5.1.0b6
-adal
 polling
