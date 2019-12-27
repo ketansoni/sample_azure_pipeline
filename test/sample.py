@@ -29,6 +29,5 @@ def test_scaffolded_directories_and_files():
     for (dirpath, dirnames, filenames) in os.walk(dirName):
         listOfFiles += [os.path.join(dirpath, file) for file in filenames]
     
-    print(listOfFiles)
     assert listOfFiles == expected_list_of_files()    
     
