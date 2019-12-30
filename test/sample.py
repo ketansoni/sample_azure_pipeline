@@ -1,3 +1,5 @@
+from hamcrest import *
+import unittest
 import os
 
 def getListOfFiles(dirName):
@@ -12,22 +14,24 @@ def getListOfFiles(dirName):
     return allFiles        
  
 def expected_list_of_files():
-	return ['./sample.py', 
-	'./test_api.py', 
-	'./.pytest_cache/CACHEDIR.TAG', 
-	'./.pytest_cache/README.md', 
-	'./.pytest_cache/.gitignore', 
-	'./.pytest_cache/v/cache/nodeids', 
-	'./.pytest_cache/v/cache/lastfailed', 
-	'./.pytest_cache/v/cache/stepwise', 
-	'./__pycache__/sample.cpython-37-pytest-5.3.2.pyc']
-
+	return ['../test/sample.py',
+			'../test/test_api.py',
+			'../build.yml']
+	
 def test_scaffolded_directories_and_files():
-    dirName = './';
- 
-    listOfFiles = list()
-    for (dirpath, dirnames, filenames) in os.walk(dirName):
-        listOfFiles += [os.path.join(dirpath, file) for file in filenames]
-    
-    assert listOfFiles == expected_list_of_files()    
-    
+	dirName = '../';
+	 
+	listOfFiles = list()
+	for (dirpath, dirnames, filenames) in os.walk(dirName):
+		listOfFiles += [os.path.join(dirpath, file) for file in filenames]
+	
+	for file in expected_list_of_files():
+		assert_that(listOfFiles, has_item(file))		
+
+
+# def test_compare_list_of_items():
+# 	actual_list_of_items = ['a','b','c']
+# 	expected_list_of_items = ['a']
+
+# 	for item in ['b','d']:
+# 		assert_that(actual_list_of_items, has_item(item)) 
