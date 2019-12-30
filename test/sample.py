@@ -2,12 +2,12 @@ from hamcrest import *
 import unittest
 import os
 
-def getListOfFiles(dirName):
+def get_list_of_files(dirName):
     listOfFile = os.listdir(dirName)
     allFiles = list()
     for entry in listOfFile:
         if os.path.isdir(fullPath):
-            allFiles = allFiles + getListOfFiles(fullPath)
+            allFiles = allFiles + get_list_of_files(fullPath)
         else:
             allFiles.append(fullPath)
                 
@@ -21,17 +21,8 @@ def expected_list_of_files():
 def test_scaffolded_directories_and_files():
 	dirName = '../';
 	 
-	listOfFiles = list()
+	actual_list_of_files = list()
 	for (dirpath, dirnames, filenames) in os.walk(dirName):
-		listOfFiles += [os.path.join(dirpath, file) for file in filenames]
+		actual_list_of_files += [os.path.join(dirpath, file) for file in filenames]
 	
-	for file in expected_list_of_files():
-		assert_that(listOfFiles, has_item(file))		
-
-
-# def test_compare_list_of_items():
-# 	actual_list_of_items = ['a','b','c']
-# 	expected_list_of_items = ['a']
-
-# 	for item in ['b','d']:
-# 		assert_that(actual_list_of_items, has_item(item)) 
+	assert_that(actual_list_of_files, has_items(*expected_list_of_files()))
