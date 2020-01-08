@@ -1,6 +1,8 @@
 from hamcrest import *
-import unittest
 import os
+
+def create_data_product(bash, command, *args):
+	bash.run_script(command, *args)
 
 def get_list_of_files(dirName):
     listOfFile = os.listdir(dirName)
@@ -18,7 +20,8 @@ def expected_list_of_files():
 			'../test/test_api.py',
 			'../build.yml']
 	
-def test_scaffolded_directories_and_files():
+def test_scaffolded_directories_and_files(bash):
+	create_data_product(bash, '../sample.sh', ['testing'])
 	dirName = '../';
 	 
 	actual_list_of_files = list()

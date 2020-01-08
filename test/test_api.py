@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
+from hamcrest import *
 import pprint
 import requests
 import json
 import polling
 import pytest
 
+
 personal_access_token = 'mmqswhjnrvvck5r5a7lacsyt4juykd7gb5e4hwgz2mhvvzl4kmva'
+
 organization_url = "https://dev.azure.com/ketansony/6d52d6ae-d077-44f3-8024-97cadee02e1b"
 headers = {
 	    'authorization': "Basic a2V0YW5zb255Om1tcXN3aGpucnZ2Y2s1cjVhN2xhY3N5dDRqdXlrZDdnYjVlNGh3Z3oybWh2dnpsNGttdmE=",
@@ -39,7 +42,7 @@ def test_pipeline():
 	build_id = trigger_pipeline()
 	wait_for_pipeline_status_to_be_completed(build_id)
 	pipeline_result_response = get_pipeline_result(build_id)
-	assert json.loads(pipeline_result_response.text).get('result') == "succeeded"
+	assert_that(json.loads(pipeline_result_response.text).get('result'), equal_to("succeeded"))
 
 			
 
